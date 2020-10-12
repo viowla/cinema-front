@@ -8,49 +8,12 @@
             $("#ticket").click(function(){
                 $.ajax({
                     type: "GET",
-                    url: "http://localhost:8085/tickets/",
+                    url: "http://localhost:8082/movie/info/",
                     success: function(result){
-                        $("p").html(result);
+                        $("#demo").html(result);
                     }});
             });
 
-       /*     $("#movies").click(function(){
-                $.ajax({
-                    type: "GET",
-                    url: "http://localhost:8082/movie/",
-                    success: function(result){
-                        $("p").html(result);
-                    }});
-            });
-
-            $("#genres").click(function(){
-                $.ajax({
-                    type: "GET",
-                    url: "http://localhost:8083/genre/",
-                    success: function(result){
-                        $("p").html(result);
-                    }});
-            });
-
-            $("#ticketById").click(function(){
-                $.ajax({
-                    type: "GET",
-                    url: "http://localhost:8084/payment/api",
-                    success: function(result){
-                        $("p").html(result);
-                    }});
-            });
-
-            $("#movieByUser").click(function(){
-                $.ajax({
-                    type: "GET",
-                    url: "http://localhost:8081/cinema/api",
-                    success: function(result){
-                        $("p").html(result);
-                    }});
-            });
-
-*/
         });
     </script>
 </head>
@@ -60,6 +23,6 @@
 <button id="genres">Get All Genres</button>
 <button id="ticketById">Get All Tickets By Id</button>
 <button id="movieByUser">Get All Movies By UserId</button>
-<p></p>
+<p id="demo"></p>
 </body>
 </html>
