@@ -5,12 +5,40 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         $(document).ready(function(){
-            $("#ticket").click(function(){
+            var element = "";
+            $("#movie").click(function(){
                 $.ajax({
                     type: "GET",
                     url: "http://localhost:8082/movie/info/",
                     success: function(result){
-                        $("#demo").html(result);
+
+                        for (var j = 0; j < result.length; j++) {
+                            element += "" +
+                                '<div class="element">'+
+                                '<h3 class="name">'+
+                                result[j].title+
+                                '</h3>'+
+                                "</div>";
+                        }
+                        document.getElementById("demo").innerHTML=element;
+                    }});
+            });
+
+            $("#ticket").click(function(){
+                var element = "";
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:8085/tickets/",
+                    success: function(result){
+                        for (var j = 0; j < result.length; j++) {
+                            element += "" +
+                                '<div class="element">'+
+                                '<h3 class="name">'+
+                                result[j].id+
+                                '</h3>'+
+                                "</div>";
+                        }
+                        document.getElementById("demo").innerHTML=element;
                     }});
             });
 
@@ -18,11 +46,8 @@
     </script>
 </head>
 <body>
+<button id="movie">Get All Movies</button>
 <button id="ticket">Get All Tickets</button>
-<button id="movies">Get All Movies</button>
-<button id="genres">Get All Genres</button>
-<button id="ticketById">Get All Tickets By Id</button>
-<button id="movieByUser">Get All Movies By UserId</button>
-<p id="demo"></p>
+<div id="demo"></div>
 </body>
 </html>
