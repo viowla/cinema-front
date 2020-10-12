@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        $(document).ready(function(){
+        function click(){
             $("#ticket").click(function(){
                 $.ajax({
                     type: "GET",
                     url: "http://localhost:8085/tickets/",
                     success: function(result){
-                        $("p").html(result);
+                        $("#demo").html(result);
                     }});
             });
 
@@ -19,7 +19,7 @@
                     type: "GET",
                     url: "http://localhost:8082/movie/",
                     success: function(result){
-                        $("p").html(result);
+                        $("#demo").html(result);
                     }});
             });
 
@@ -28,7 +28,7 @@
                     type: "GET",
                     url: "http://localhost:8083/genre/",
                     success: function(result){
-                        $("p").html(result);
+                        $("#demo").html(result);
                     }});
             });
 
@@ -37,7 +37,7 @@
                     type: "GET",
                     url: "http://localhost:8084/payment/api",
                     success: function(result){
-                        $("p").html(result);
+                        $("#demo").html(result);
                     }});
             });
 
@@ -46,20 +46,20 @@
                     type: "GET",
                     url: "http://localhost:8081/cinema/api",
                     success: function(result){
-                        $("p").html(result);
+                        $("#demo").html(result);
                     }});
             });
 
 
-        });
+        }
     </script>
 </head>
 <body>
-<button id="ticket">Get All Tickets</button>
+<button id="ticket" onclick="click()">Get All Tickets</button>
 <button id="movies">Get All Movies</button>
 <button id="genres">Get All Genres</button>
 <button id="ticketById">Get All Tickets By Id</button>
 <button id="movieByUser">Get All Movies By UserId</button>
-<p></p>
+<p id="demo"></p>
 </body>
 </html>
