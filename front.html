@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
+    <script type="text/javascript">
         $(document).ready(function(){
             var element = "";
             $("#movie").click(function(){
                 $.ajax({
                     type: "GET",
-                    url: "http://localhost:8082/movie/info/",
+                    url: "http://localhost:8082/movie/all",
                     success: function(result){
 
                         for (var j = 0; j < result.length; j++) {
@@ -28,7 +28,44 @@
                 var element = "";
                 $.ajax({
                     type: "GET",
-                    url: "http://localhost:8085/tickets/",
+                    url: "http://localhost:8085/ticket/all",
+                    success: function(result){
+                        for (var j = 0; j < result.length; j++) {
+                            element += "" +
+                                '<div class="element">'+
+                                '<p class="name">'+
+                                "The tickets costs are"+result[j].cost+"$"+
+                                '</p>'+
+                                "</div>";
+                        }
+                        document.getElementById("demo").innerHTML=element;
+                    }});
+            });
+
+            $("#payment").click(function(){
+                var element = "";
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:8084/payment/all",
+                    success: function(result){
+                        for (var j = 0; j < result.length; j++) {
+                            element += "" +
+                                '<div class="element">'+
+                                '<p class="name">'+
+                                "User "+result[j].user.fullName+" has bought a ticket on"+
+                                " "+result[j].movie.title+" by "+result[j].ticket.cost+"$"+
+                                '</p>'+
+                                "</div>";
+                        }
+                        document.getElementById("demo").innerHTML=element;
+                    }});
+            });
+
+            $("#genre").click(function(){
+                var element = "";
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:8083/genre/all",
                     success: function(result){
                         for (var j = 0; j < result.length; j++) {
                             element += "" +
@@ -42,12 +79,102 @@
                     }});
             });
 
+            $("#genre_id").click(function () {
+                var element = "";
+                var s = $("input").val();
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:8083/genre/"+s,
+                    success: function(result){
+                        for (var j = 0; j < result.length; j++) {
+                            element += "" +
+                                '<div class="element">'+
+                                '<h3 class="name">'+
+                                result[j].id+
+                                '</h3>'+
+                                "</div>";
+                        }
+                        document.getElementById("demo_id").innerHTML=element;
+                    }});
+            });
+
+            $("#movie_id").click(function () {
+                var element = "";
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:8082/movie/"+$("input").val(),
+                    success: function(result){
+                        for (var j = 0; j < result.length; j++) {
+                            element += "" +
+                                '<div class="element">'+
+                                '<h3 class="name">'+
+                                result[j].id+
+                                '</h3>'+
+                                "</div>";
+                        }
+                        document.getElementById("demo_id").innerHTML=element;
+                    }});
+            });
+
+            $("#ticket_id").click(function () {
+                var element = "";
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:8085/ticket/"+$("input").val(),
+                    success: function(result){
+                        for (var j = 0; j < result.length; j++) {
+                            element += "" +
+                                '<div class="element">'+
+                                '<h3 class="name">'+
+                                result[j].id+
+                                '</h3>'+
+                                "</div>";
+                        }
+                        document.getElementById("demo_id").innerHTML=element;
+                    }});
+            });
+
+            $("#payment_id").click(function () {
+                var element = "";
+                var s = $("input").val();
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:8084/payment/"+s,
+                    success: function(result){
+                        for (var j = 0; j < result.length; j++) {
+                            element += "" +
+                                '<div class="element">'+
+                                '<h3 class="name">'+
+                                result[j].user.fullName+
+                                '</h3>'+
+                                "</div>";
+                        }
+                        document.getElementById("demo_id").innerHTML=element;
+                    }});
+            });
+
         });
     </script>
 </head>
 <body>
-<button id="movie">Get All Movies</button>
-<button id="ticket">Get All Tickets</button>
-<div id="demo"></div>
+<div>
+    <button id="movie" style="width: 100px; height: 50px;">Get All Movies</button>
+    <button id="ticket" style="width: 100px; height: 50px;">Get All Tickets</button>
+    <button id="payment" style="width: 100px; height: 50px;">Get All Payments</button>
+    <button id="genre" style="width: 100px; height: 50px;">Get All Genres</button>
+<div id="demo" style="width: auto; height: 300px; border: black 2px solid; margin: 10px;"></div>
+</div>
+
+<div>
+    <p>Input id:</p>
+    <input type="text" style="width: 100px; height: 50px; margin: 10px;
+    font-size: 40px; text-align: center;" id="input"><br/>
+    <button id="genre_id" style="width: 100px; height: 50px;">Find genre</button>
+    <button id="payment_id" style="width: 100px; height: 50px;">Find payment</button>
+    <button id="ticket_id" style="width: 100px; height: 50px;">Find ticket</button>
+    <button id="movie_id" style="width: 100px; height: 50px;">Find movie</button>
+    <div id="demo_id" style="width: auto; height: 300px; border: black 2px solid; margin: 10px;"></div>
+</div>
+
 </body>
 </html>
